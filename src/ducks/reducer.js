@@ -20,7 +20,7 @@ const UPDATE_RENT = 'UPDATE_RENT';
 const CLEAR_ALL = 'CLEAR_ALL';
 
 function reducer(state = initialState, action){
-    console.log("In reducer, action = "+action.type+", payload: "+action.payload)
+    // console.log("In reducer, action = "+action.type+", payload: "+action.payload)
     switch(action.type){
         case UPDATE_NAME:   
             return Object.assign({},state, {name: action.payload});

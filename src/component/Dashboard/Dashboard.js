@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 import House from  '../House/House.js';
 
@@ -46,7 +46,15 @@ class Dashboard extends Component {
         this.getHouses();
     }
 
+    refresh(){
+        this.getHouses();
+    }
+
     render(){
+        if(this.props.match.path === "/new"){
+            this.refresh();
+            return (<Redirect to='/'/>)
+        }
         var houseList = this.state.houses.map((val, i)=>{
             return(
                 <div className="houseContainer" key={i}>
