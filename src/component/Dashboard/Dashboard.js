@@ -46,15 +46,8 @@ class Dashboard extends Component {
         this.getHouses();
     }
 
-    refresh(){
-        this.getHouses();
-    }
-
     render(){
-        if(this.props.match.path === "/new"){
-            this.refresh();
-            return (<Redirect to='/'/>)
-        }
+        this.getHouses();
         var houseList = this.state.houses.map((val, i)=>{
             return(
                 <div className="houseContainer" key={i}>

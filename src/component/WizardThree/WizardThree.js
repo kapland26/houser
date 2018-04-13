@@ -40,7 +40,7 @@ class WizardThree extends Component {
                 <input onChange={(e)=>this.props.updateRent(e.target.value)} type="text" value={this.props.rent}/>
                 <br/>
                 <Link to={'/wizard/wTwo'}><button>Previous Step</button></Link><br/>
-                <Link to={'/new'}><button onClick={()=>this.handleAdd()}> Complete </button></Link>
+                <Link to={'/'}><button onClick={()=>this.handleAdd()}> Complete </button></Link>
             </div>
         )
     }
