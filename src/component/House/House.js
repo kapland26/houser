@@ -4,7 +4,13 @@ export default function House( props ) {
 
     return(
         <div className="House">
-        House
+        House:<br/>
+        Property Name: {props.name}<br/>
+        Address: {props.address}<br/>
+        City: {props.city}<br/>
+        State: {props.state}<br/>
+        Zip: {props.zip}<br/>
+        <button>Delete</button><br/>
         </div>
     )
 
