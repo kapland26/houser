@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 .env
+README2.md
 
 # testing
 /coverage
