@@ -10,7 +10,7 @@ export default function House( props ) {
         City: {props.city}<br/>
         State: {props.state}<br/>
         Zip: {props.zipcode}<br/>
-        <button>Delete</button><br/>
+        <button onClick={()=> props.deleteHouse(props.id)}>Delete</button><br/>
         </div>
     )
 

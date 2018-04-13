@@ -12,6 +12,7 @@ class Dashboard extends Component {
         this.state={  
             houses:[]
         }
+        this.deleteHouse = this.deleteHouse.bind(this);
         this.getHouses = this.getHouses.bind(this);
     }
 
@@ -31,11 +32,21 @@ class Dashboard extends Component {
     });
     }
 
+    deleteHouse(id){
+        axios.delete("/api/house/"+id).then( (res) => {
+            console.log(res);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        this.getHouses();
+    }
+
     render(){
         var houseList = this.state.houses.map((val, i)=>{
             return(
                 <div className="houseContainer" key={i}>
-                    <House id={val.id} name={val.name} address={val.address} city={val.city} state={val.state} zipcode={val.zipcode} />
+                    <House deleteHouse = {this.deleteHouse} id={val.id} name={val.name} address={val.address} city={val.city} state={val.state} zipcode={val.zipcode} />
                 </div>
             )
         })
