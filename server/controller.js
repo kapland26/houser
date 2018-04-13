@@ -8,5 +8,16 @@ module.exports = {
                 console.log(err)
                 res.status(500).send(err) 
             });    
-    }
+    },
+    create:( req, res ) => {
+        const connection = req.app.get('db');
+        const {name,address, city, state, zipcode} = req.body;
+        console.log("name: "+name+" zip= "+zipcode)
+        connection.create_house([name,address, city, state, zipcode])
+            .then( ()=> res.status(200).send())
+            .catch( (err) => {
+                console.log(err)
+                res.status(500).send(err) 
+            });    
+    },
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
 
 
@@ -46,32 +47,31 @@ class Wizard extends Component {
         })
     }
 
-    // handleCancel(){
-    //     this.setState({
-    //         nameIn: "",
-    //         addressIn: "",
-    //         cityIn: "",
-    //         stateIn: "",
-    //         zipcodeIn: ""
-    //     })
-    // }
+    handleCancel(){
+        this.setState({
+            nameIn: "",
+            addressIn: "",
+            cityIn: "",
+            stateIn: "",
+            zipcodeIn: ""
+        })
+    }
 
     handleAdd(){
-        // let body={
-        //    name: this.state.nameIn,
-        //    address: this.state.addressIn,
-        //    city: this.state.cityIn,
-        //    state:this.state.stateIn,
-        //    zipcode:this.state.zipcodeIn
-        // } 
-        // axios.post("/api/product",body).then(function (response) {
-        //     console.log(response);
-        // })
-        // .catch(function (error) {
-        //     alert("Bad post!");
-        // });
-        // this.props.getProducts;
-        // this.handleCancel();
+        let body={
+           name: this.state.nameIn,
+           address: this.state.addressIn,
+           city: this.state.cityIn,
+           state:this.state.stateIn,
+           zipcode:this.state.zipcodeIn
+        } 
+        axios.post("/api/house",body).then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            alert("Bad post!");
+        });
+        this.handleCancel();
 
     }
 
@@ -91,9 +91,9 @@ class Wizard extends Component {
             <h1> Zipcode:</h1>
             <input onChange={(e)=>this.handleZipcodeIn(e.target.value)} type="text" value={this.state.zipcodeIn}/>          
             <br/>
-            <button onClick={()=>this.handleAdd()}>Complete</button>
+            <Link to={'/'}><button onClick={()=>this.handleAdd()}>Complete</button></Link>
             <br/>
-            <Link to={'/'}><button> Cancel </button></Link>
+            <Link to={'/'}><button onClick={()=>this.handleCancel()}> Cancel </button></Link>
             </div>
         )
     }

@@ -9,7 +9,7 @@ export default function House( props ) {
         Address: {props.address}<br/>
         City: {props.city}<br/>
         State: {props.state}<br/>
-        Zip: {props.zip}<br/>
+        Zip: {props.zipcode}<br/>
         <button>Delete</button><br/>
         </div>
     )

@@ -10,6 +10,7 @@ massive( process.env.CONNECTION_STRING ).then( connection => app.set('db', conne
 
 
 app.get("/api/houses", hc.read);
+app.post("/api/house", hc.create)
 
 const port = process.env.PORT || 3005;
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
