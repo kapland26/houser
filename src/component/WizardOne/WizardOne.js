@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {Link} from 'react-router-dom';
-
+import {connect} from 'react-redux';
+import {updateName, updateAddress, updateCity, updateState, updateZipcode} from '../../ducks/reducer.js';
 
 class WizardOne extends Component {
     
@@ -9,58 +9,7 @@ class WizardOne extends Component {
         super();
 
         this.state={  
-            nameIn: "",     
-            addressIn: "",
-            cityIn: "",
-            stateIn: "",
-            zipcodeIn: ""
         }
-    }
-    handleNameIn(e){
-        // console.log("in name")
-        this.setState({
-            nameIn:e
-        })
-    }
-    handleAddressIn(e){
-        // console.log("in addr")
-        this.setState({
-            addressIn:e
-        })
-    }
-    handleCityIn(e){
-        // console.log("in city")
-        this.setState({
-            cityIn:e
-        })
-    }
-    handleStateIn(e){
-        // console.log("in state")
-        this.setState({
-            stateIn:e
-        })
-    }
-    handleZipcodeIn(e){
-        // console.log("in zip")
-        this.setState({
-            zipcodeIn:e
-        })
-    }
-    handleAdd(){
-        let body={
-           name: this.state.nameIn,
-           address: this.state.addressIn,
-           city: this.state.cityIn,
-           state:this.state.stateIn,
-           zipcode:this.state.zipcodeIn
-        } 
-        axios.post("/api/house",body).then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            alert("Bad post!");
-        });
-        this.handleCancel();
     }
 
     render(){
@@ -69,15 +18,15 @@ class WizardOne extends Component {
                 <h1>Add New Listing</h1>
                 <br/>
                 <h1> Name:</h1>
-                <input onChange={(e)=>this.handleNameIn(e.target.value)} type="text" value={this.state.nameIn}/>
+                <input onChange={(e)=>this.props.updateName(e.target.value)} type="text" value={this.props.name}/>
                 <h1> Address:</h1>
-                <input onChange={(e)=>this.handleAddressIn(e.target.value)} type="text" value={this.state.addressIn}/>
+                <input onChange={(e)=>this.props.updateAddress(e.target.value)} type="text" value={this.props.address}/>
                 <h1> City:</h1>
-                <input onChange={(e)=>this.handleCityIn(e.target.value)} type="text" value={this.state.cityIn}/>            
+                <input onChange={(e)=>this.props.updateCity(e.target.value)} type="text" value={this.props.city}/>            
                 <h1> State:</h1>
-                <input onChange={(e)=>this.handleStateIn(e.target.value)} type="text" value={this.state.stateIn}/>           
+                <input onChange={(e)=>this.props.updateState(e.target.value)} type="text" value={this.props.state}/>           
                 <h1> Zipcode:</h1>
-                <input onChange={(e)=>this.handleZipcodeIn(e.target.value)} type="text" value={this.state.zipcodeIn}/>          
+                <input onChange={(e)=>this.props.updateZipcode(e.target.value)} type="text" value={this.props.zipcode}/>          
                 <br/>
                 <Link to={'/wizard/wTwo'}><button>Next Step</button></Link>
                 <br/>
@@ -85,4 +34,15 @@ class WizardOne extends Component {
         )
     }
 }
-export default WizardOne;
+
+function mapStateToProps(state){
+    return{
+      name: state.name,
+      address: state.address,
+      city: state.city,
+      state: state.state,
+      zipcode: state.zipcode
+    }
+}
+
+export default connect(mapStateToProps, {updateName, updateAddress, updateCity, updateState, updateZipcode})(WizardOne);

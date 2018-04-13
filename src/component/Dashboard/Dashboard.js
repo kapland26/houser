@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 import House from  '../House/House.js';
 
+
 class Dashboard extends Component {
     
     constructor(){
@@ -17,6 +18,9 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
+        this.getHouses();
+    }
+    componentWillReceiveProps(nextProps) {
         this.getHouses();
     }
 
@@ -46,7 +50,7 @@ class Dashboard extends Component {
         var houseList = this.state.houses.map((val, i)=>{
             return(
                 <div className="houseContainer" key={i}>
-                    <House deleteHouse = {this.deleteHouse} id={val.id} name={val.name} address={val.address} city={val.city} state={val.state} zipcode={val.zipcode} />
+                    <House deleteHouse = {this.deleteHouse} id={val.id} name={val.name} address={val.address} city={val.city} state={val.state} zipcode={val.zipcode} image={val.image}mortgage={val.mortgage} rent={val.rent} />
                 </div>
             )
         })

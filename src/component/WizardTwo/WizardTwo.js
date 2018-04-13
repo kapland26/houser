@@ -1,28 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-
+import {connect} from 'react-redux';
+import {updateImage} from '../../ducks/reducer.js';
 
 class WizardTwo extends Component {
-    
-    constructor(){
-        super();
-
-        this.state={  
-            imageIn: ""
-        }
-    }
-    handleImageIn(e){
-        // console.log("in name")
-        this.setState({
-            imageIn:e
-        })
-    }
-
-    handleCancel(){
-        this.setState({
-            imageIn: ""
-        })
-    }
 
     render(){
         return(
@@ -30,7 +11,7 @@ class WizardTwo extends Component {
                 <h1>Add New Listing</h1>
                 <br/>
                 <h1> Image Url:</h1>
-                <input onChange={(e)=>this.handleImageIn(e.target.value)} type="text" value={this.state.imageIn}/>
+                <input onChange={(e)=>this.props.updateImage(e.target.value)}type="text" value={this.props.image}/>
                 <br/>
                 <Link to={'/wizard/wOne'}><button>Previous Step</button></Link>
                 <br/>
@@ -40,4 +21,10 @@ class WizardTwo extends Component {
         )
     }
 }
-export default WizardTwo;
+
+function mapStateToProps(state){
+    return{
+      image: state.image
+    }
+}
+export default connect(mapStateToProps, {updateImage})(WizardTwo);

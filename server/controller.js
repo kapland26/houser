@@ -11,9 +11,9 @@ module.exports = {
     },
     create:( req, res ) => {
         const connection = req.app.get('db');
-        const {name,address, city, state, zipcode} = req.body;
+        const {name,address, city, state, zipcode, image, mortgage, rent} = req.body;
         console.log("name: "+name+" zip= "+zipcode)
-        connection.create_house([name,address, city, state, zipcode])
+        connection.create_house([name,address, city, state, zipcode, image, mortgage, rent])
             .then( ()=> res.status(200).send())
             .catch( (err) => {
                 console.log(err)

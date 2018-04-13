@@ -1,33 +1,30 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {updateMortgage, updateRent, clearAll} from '../../ducks/reducer.js';
 
 
 class WizardThree extends Component {
-    
-    constructor(){
-        super();
 
-        this.state={  
-            motgageIn: 0,
-            rentIn: 0
+    handleAdd(){
+        let body={
+            name: this.props.name,
+            address: this.props.address,
+            city: this.props.city,
+            state: this.props.state,
+            zipcode: this.props.zipcode,
+            image: this.props.image,
+            mortgage: this.props.mortgage,
+            rent: this.props.rent
         }
-    }
-    handleMortgageIn(e){
-        // console.log("in name")
-        this.setState({
-            mortgageIn:e
-        })
-    }
-    handleRentIn(e){
-        // console.log("in name")
-        this.setState({
-            rentIn:e
-        })
-    }
-    handleCancel(){
-        this.setState({
-            imageIn: ""
-        })
+        axios.post("/api/house",body).then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                alert("Bad post!");
+            });
+            this.props.clearAll();
     }
 
     render(){
@@ -35,14 +32,30 @@ class WizardThree extends Component {
             <div className = "WizardTwo">
                 <h1>Add New Listing</h1>
                 <br/>
-                <h1> Image Url:</h1>
-                <input onChange={(e)=>this.handleImageIn(e.target.value)} type="text" value={this.state.imageIn}/>
+                <h1> Monthly Mortgage Amount:</h1>
+                <input onChange={(e)=>this.props.updateMortgage(e.target.value)} type="text" value={this.props.mortgage}/>
                 <br/>
-                {/* <Link to={'/'}><button onClick={()=>this.handleAdd()}>Complete</button></Link> */}
-                <Link to={'/wizard/wTwo'}><button>Next Step</button></Link><br/>
-                <Link to={'/'}><button> Complete </button></Link>
+                <h1> Desired Monthly Rent:</h1>
+                <input onChange={(e)=>this.props.updateRent(e.target.value)} type="text" value={this.props.rent}/>
+                <br/>
+                <Link to={'/wizard/wTwo'}><button>Previous Step</button></Link><br/>
+                <Link to={'/'}><button onClick={()=>this.handleAdd()}> Complete </button></Link>
             </div>
         )
     }
 }
-export default WizardThree;
+
+function mapStateToProps(state){
+    return{
+      name: state.name,
+      address: state.address,
+      city: state.city,
+      state: state.state,
+      zipcode: state.zipcode,
+      image: state.image,
+      mortgage: state.mortgage,
+      rent: state.rent
+    }
+}
+
+export default connect(mapStateToProps, {updateMortgage, updateRent, clearAll})(WizardThree);
